@@ -1,0 +1,17 @@
+.container {
+  font-family: fira code;
+  color: steelblue;
+  text-align: center;
+  margin-top: 15%;
+}
+
+.btn1 {
+  font-family: fira code;
+  background-color: steelblue;
+  border-radius: 20px;
+  height: 30px;
+  width: 100px;
+}
+.btn1:hover {
+  background-color: turquoise;
+}
