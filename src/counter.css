@@ -5,13 +5,13 @@
   margin-top: 15%;
 }
 
-.btn1 {
+button {
   font-family: fira code;
   background-color: steelblue;
   border-radius: 20px;
   height: 30px;
   width: 100px;
 }
-.btn1:hover {
+button:hover {
   background-color: turquoise;
 }

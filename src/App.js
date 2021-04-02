@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
+import AddTask from "./Components/AddTask";
+import TodoList from "./Components/TodoList";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class App extends Component {
   state = {
@@ -7,8 +10,16 @@ export default class App extends Component {
       { id: 0, action: "wake up", isDone: true },
       { id: 1, action: "have coffee", isDone: false },
     ],
-    newText: "",
   };
+  //edit Task
+  handleEdit = (id, value) => {
+    this.setState({
+      tasks: this.state.tasks.map((el) =>
+        el.id === id ? { ...el, action: value } : el
+      ),
+    });
+  };
+
   // deleting tasks from the list
   handleDelete = (index) =>
     this.setState({
@@ -28,45 +39,22 @@ export default class App extends Component {
       action: text,
       isDone: false,
     };
-    this.state.newText.trim() === ""
+    text.trim() === ""
       ? alert("invalid task")
       : this.setState({ tasks: [...this.state.tasks, newTask] });
     this.setState({ newText: "" });
   };
-  // handle changes in the input field
-  handleChange = (event) => this.setState({ newText: event.target.value });
+
   render() {
     return (
       <div className="title">
-        <h1>Our to-do list</h1>
-        <form onSubmit={(e) => e.preventDefault(e)} className="frm">
-          <input
-            onChange={(e) => this.handleChange(e)}
-            value={this.state.newText}
-            className="inp"
-            type="text"
-            placeholder="Enter task.."
-          />
-          <button onClick={() => this.handleAdd(this.state.newText)}>
-            Add
-          </button>
-        </form>
-        <div className="list">
-          {this.state.tasks.map((el) => (
-            <div key={el.id} className="Card">
-              <h2 id={el.isDone ? "done" : ""}> {el.action} </h2>
-              <div>
-                <button id="del" onClick={() => this.handleDelete(el.id)}>
-                  {" "}
-                  Delete
-                </button>
-                <button onClick={() => this.handleTask(el.id)}>
-                  {el.isDone ? "Undo" : "Complete"}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <AddTask add={this.handleAdd} />
+        <TodoList
+          todos={this.state.tasks}
+          handleDelete={this.handleDelete}
+          handleTask={this.handleTask}
+          handleEdit={this.handleEdit}
+        />
       </div>
     );
   }
